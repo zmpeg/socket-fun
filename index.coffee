@@ -13,14 +13,16 @@ app.get '/zepto.js', (req,res) ->
 
 io.on 'connection', (socket) ->
   console.log socket.id + " connected."
-  people.push { id: socket.id }
-  console.log people
+  people.push { id: socket.id, x: 100, y: 100 }
+  io.emit 'places', people
+
+  socket.on 'click', (pos) ->
+    console.log pos
   
   socket.on 'disconnect', ->
     console.log socket.id + " disconnected."
     people = people.filter (item, i) ->
       item.id == socket.id
-    console.log people
 
 http.listen 3000, ->
   console.log 'listening on *:3000'
