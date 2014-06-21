@@ -17,7 +17,10 @@ io.on 'connection', (socket) ->
   io.emit 'places', people
 
   socket.on 'click', (pos) ->
-    console.log pos
+    for person in people when person.id == socket.id
+      person.x = pos.x
+      person.y = pos.y
+      io.emit 'places', people
   
   socket.on 'disconnect', ->
     console.log socket.id + " disconnected."
