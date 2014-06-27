@@ -25,7 +25,7 @@
 
       var socket = io();
       socket.on('places', function(people) {
-        console.log(people.length + ' people are online')
+        console.log('Got a list of ' + people.length + ' people')
         window.people = people
       });
       
