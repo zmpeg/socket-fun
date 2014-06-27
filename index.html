@@ -56,8 +56,17 @@
         }
       };
 
+      window.relativeClick = function(e) {
+        if(e.offsetX) {
+          return { x: e.offsetX, y: e.offsetY };
+        } else {
+          parentOffset = $("canvas").offset();
+          return { x: (e.pageX - parentOffset.left), y: (e.pageY - parentOffset.top) }
+        }
+      };
+
       canvas.addEventListener('mousedown', function(e) {
-        socket.emit('click', { x: e.x, y: e.y })
+        socket.emit('click', relativeClick(e))
       }, false);
 
       main();
